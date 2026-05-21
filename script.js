@@ -1,68 +1,88 @@
-let pantalla = document.getElementById('pantalla');
-let valorActual = '0';
-let valorAnterior = '';
-let operacion = null;
-let nuevaOperacion = false;
-
-function actualizarPantalla() {
-    pantalla.textContent = valorActual;
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
 }
 
-function agregarNumero(numero) {
-    if (nuevaOperacion) {
-        valorActual = numero;
-        nuevaOperacion = false;
-    } else {
-        valorActual = valorActual === '0' ? numero : valorActual + numero;
-    }
-    actualizarPantalla();
+.calculadora {
+    background: #1f2937;
+    padding: 25px;
+    border-radius: 25px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    width: 360px;
 }
 
-function agregarOperacion(op) {
-    if (operacion !== null) calcular();
-    valorAnterior = valorActual;
-    operacion = op;
-    nuevaOperacion = true;
+h1 {
+    text-align: center;
+    color: white;
+    margin-bottom: 20px;
+    font-size: 1.8rem;
 }
 
-function calcular() {
-    if (operacion === null) return;
-    
-    let resultado;
-    const anterior = parseFloat(valorAnterior);
-    const actual = parseFloat(valorActual);
-
-    switch(operacion) {
-        case '+': resultado = anterior + actual; break;
-        case '-': resultado = anterior - actual; break;
-        case '*': resultado = anterior * actual; break;
-        case '/': 
-            resultado = actual !== 0 ? anterior / actual : 'Error';
-            break;
-    }
-
-    valorActual = resultado.toString();
-    operacion = null;
-    nuevaOperacion = true;
-    actualizarPantalla();
+.pantalla {
+    background: #111827;
+    color: #22d3ee;
+    font-size: 2.5rem;
+    text-align: right;
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    min-height: 80px;
+    word-break: break-all;
+    box-shadow: inset 0 5px 10px rgba(0, 0, 0, 0.5);
 }
 
-function limpiar() {
-    valorActual = '0';
-    valorAnterior = '';
-    operacion = null;
-    nuevaOperacion = false;
-    actualizarPantalla();
+.botones {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
 }
 
-function borrarUno() {
-    if (valorActual.length > 1) {
-        valorActual = valorActual.slice(0, -1);
-    } else {
-        valorActual = '0';
-    }
-    actualizarPantalla();
+.btn {
+    padding: 20px;
+    font-size: 1.4rem;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.2s;
 }
 
-// Inicializar
-actualizarPantalla();
+.numero {
+    background: #374151;
+    color: white;
+}
+
+.operador {
+    background: #f59e0b;
+    color: white;
+    font-weight: bold;
+}
+
+.limpiar {
+    background: #ef4444;
+    color: white;
+}
+
+.igual {
+    background: #22c55e;
+    color: white;
+    grid-row: span 2;
+    height: 100%;
+}
+
+.cero {
+    grid-column: span 2;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+}
+
+.btn:active {
+    transform: scale(0.95);
+}
